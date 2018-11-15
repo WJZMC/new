@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理页面</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            $(".menu_con").delegate("div","click",function () {
+                $(this).addClass("active").next().addClass("show");
+                $(this).siblings().removeClass("active");
+                $(this).next().siblings().removeClass("show");
+            })
+        })
+    </script>
+</head>
+<body>
+
+<div class="header">
+    <a href="#" class="logo fl"><img src="/static/img/logo.png" alt="logo"></a>
+    <a href="/artical/logout" class="logout fr">退 出</a>
+</div>
+
+<div class="side_bar">
+    <div class="user_info">
+        <img src="/static/img/person.png" alt="张大山">
+        <p>欢迎你 <em>{{.name}}</em></p>
+    </div>
+
+    <div class="menu_con">
+        <div class="first_menu active" id="1"><a href="javascript:;" class="icon02">文章管理</a></div>
+        <ul class="sub_menu show" id="2">
+            <li><a href="/artical/mainPage" class="icon031">文章列表</a></li>
+            <li><a href="/artical/add_Artical" class="icon032">添加文章</a></li>
+            <li><a href="/artical/addArticalType" class="icon034">添加分类</a></li>
+        </ul>
+        <div class="first_menu" id="3"><a href="javascript:;" class="icon02">用户管理</a></div>
+        <ul class="sub_menu" id="4">
+            <li><a href="/artical/userList" class="icon031">用户列表</a></li>
+        </ul>
+    </div>
+</div>
+{{.LayoutContent}}
+
+
+</body>
+</html>

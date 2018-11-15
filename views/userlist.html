@@ -1,0 +1,48 @@
+<div class="main_body" id="main_body">
+    <div class="breadcrub">
+        当前位置：用户管理>用户列表
+    </div>
+    <div class="pannel">
+        <span class="sel_label">请选择文章分类：</span>
+        <form action="/artical/mainPage" method="get" class="selectFrom">
+            <select name="select" id="select" class="sel_opt">
+            {{range .ats}}
+                <option {{if compare $.selectName .TypeName}} selected="true"{{else}}{{end}}>{{.TypeName}}</option>
+            {{/*selected="true"*/}}
+            {{end}}
+            </select>
+        </form>
+
+        <table class="common_table">
+            <tr>
+                <th width="43%">文章标题</th>
+                <th width="10%">文章内容</th>
+                <th width="16%">添加时间</th>
+                <th width="7%">阅读量</th>
+                <th width="7%">删除</th>
+                <th width="7%">编辑</th>
+                <th width="10%">文章类型</th>
+            </tr>
+        {{range $index,$artical:=.articals}}
+            <tr>
+                <td>{{$artical.Title}}</td>
+                <td><a href="/artical/aritcalDetail?Id={{$artical.Id}}">查看详情</a></td>
+                <td> {{$artical.AddTime.Format "2006-01-02 15:04:05"}}</td>
+                <td>{{$artical.ReadCount}}</td>
+                <td><a href="/artical/delArtical?Id={{$artical.Id}}" class="dels">删除</a></td>
+                <td><a href="/artical/updateArtical?Id={{$artical.Id}}">编辑</a></td>
+                <td>{{$artical.AritcalType.TypeName}}</td>
+            </tr>
+        {{end}}
+        </table>
+
+        <ul class="pagenation">
+            <li><a href="/artical/mainPage?pageIndex=1&selectName={{.selectName}}">首页</a></li>
+            <li><a href="/artical/mainPage?selectName={{.selectName}}&pageIndex={{.curentPage|prePage}}">上一页 </a> </li>
+            <li> <a href="/artical/mainPage?selectName={{.selectName}}&pageIndex={{NextPage .curentPage .pageCount}}">下一页</a></li>
+            <li><a href="/artical/mainPage?selectName={{.selectName}}&pageIndex={{.pageCount}}">末页</a></li>
+            <li>共{{.articalCount}}条记录/共{{.pageCount}}页/当前{{.curentPage}}页</li>
+        </ul>
+        <div>{{.errmsg}}</div>
+    </div>
+</div>
